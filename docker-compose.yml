@@ -1,0 +1,24 @@
+version: '3'
+services:
+    wordpress:
+        image: wordpress:latest
+        ports:
+            - '80:80'
+            - '443:443'
+        volumes:
+            - /c/Users/Development/code/wordpress-plugin-base/:/var/www/html/
+        environment:
+            WORDPRESS_DB_PASSWORD: miotklimited
+            WORDPRESS_DB_USER: root
+            WORDPRESS_DB_HOST: database:3306
+            WORDPRESS_TABLE_PREFIX: miotk_
+    database:
+        image: percona:latest
+        volumes:
+            - db-data:/var/lib/mysql/
+        ports:
+            - '3306:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: miotklimited
+volumes:
+    db-data:
