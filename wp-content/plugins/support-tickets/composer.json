@@ -1,0 +1,19 @@
+{
+    "name": "miotk/support-tickets",
+    "description": "Wordpress plugin for enabling support tickets on a Wordpress website",
+    "type": "project",
+    "license": "GpL",
+    "authors": [
+        {
+            "name": "Miotk Limited",
+            "email": "support@miotk.io"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "./_app"
+        }
+    }
+}

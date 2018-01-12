@@ -7,6 +7,8 @@ services:
             - '443:443'
         volumes:
             - /c/Users/Development/code/wordpress-plugin-base/:/var/www/html/
+        depends_on:
+            - database
         environment:
             WORDPRESS_DB_PASSWORD: miotklimited
             WORDPRESS_DB_USER: root
