@@ -5,31 +5,46 @@
 
 namespace App\Pages;
 
+use App\Api\Settings;
 use App\Bootstrap\Base;
 
 class Admin extends Base
 {
+    public $settings;
+    private $pages;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->settings = new Settings();
+    }
+
     /**
      * Bootstrap the Admin class.
      */
     public function bootstrap()
     {
-        add_action('admin_menu', [$this, 'add_admin_pages']);
-    }
+        $pages = [
+            [
+                'page_title' => 'Support Tickets Settings',
+                'menu_title' => 'ST Settings',
+                'capability' =>  'manage_options',
+                'menu_slug' => 'support_tickets_settings',
+                'callback' => function() { echo 'test'; },
+                'icon_url' => 'dashicons-admin-tools',
+                'position' => 110
+            ],
+            [
+                'page_title' => 'Support Tickets',
+                'menu_title' => 'Support Tickets',
+                'capability' => 'manage_options',
+                'menu_slug' => 'support_tickets',
+                'callback' => function() { echo 'Support Tickets Page'; },
+                'icon_url' => 'dashicons-tickets-alt',
+                'position' => 6
+            ]
+        ];
 
-    /**
-     * Add the admin menu pages with all of the content.
-     */
-    public function add_admin_pages()
-    {
-        add_menu_page('Support Tickets', 'Support Tickets', 'manage_options', 'support_tickets', [ $this, 'admin_index' ], 'dashicons-admin-tools', 110);
-    }
-
-    /**
-     * Render the template linked to the admin page.
-     */
-    public function admin_index()
-    {
-        require_once $this->plugin_path . 'templates/admin.php';
+        $this->settings->generatePages($pages)->bootstrap();
     }
 }
