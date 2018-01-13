@@ -27,20 +27,12 @@ class Admin extends Base
      */
     public function bootstrap()
     {
-        $this->settingsPage();
-        $this->ticketsPage();
+        $this->pages = [
+            $this->settingsPage(),
+            $this->ticketsPage()
+        ];
 
-        $this->settings->generatePages([$this->pages])->bootstrap();
-    }
-
-    /**
-     * Merge the new array with the existing pages array.
-     * @param $page
-     * @return array
-     */
-    private function addPage($page)
-    {
-        return $this->pages = array_merge($this->pages, $page);
+        $this->settings->generatePages($this->pages)->bootstrap();
     }
 
     /**
@@ -48,7 +40,7 @@ class Admin extends Base
      */
     private function settingsPage()
     {
-        $this->addPage([
+        return [
             'page_title' => 'Support Tickets Settings',
             'menu_title' => 'ST Settings',
             'capability' =>  'manage_options',
@@ -56,7 +48,7 @@ class Admin extends Base
             'callback' => function() { echo 'test'; },
             'icon_url' => 'dashicons-admin-tools',
             'position' => 110
-        ]);
+        ];
     }
 
     /**
@@ -64,7 +56,7 @@ class Admin extends Base
      */
     private function ticketsPage()
     {
-        $this->addPage([
+        return [
             'page_title' => 'Support Tickets',
             'menu_title' => 'Support Tickets',
             'capability' => 'manage_options',
@@ -72,6 +64,6 @@ class Admin extends Base
             'callback' => function() { echo 'Support Tickets Page'; },
             'icon_url' => 'dashicons-tickets-alt',
             'position' => 6
-        ]);
+        ];
     }
 }
