@@ -5,14 +5,14 @@
 
 namespace App\Bootstrap;
 
-class Settings
+class Settings extends Base
 {
     /**
      * Bootstrap the settings class.
      */
     public function bootstrap()
     {
-        add_filter('plugin_action_links_' . PLUGIN, [$this, 'settingsLinks']);
+        add_filter('plugin_action_links_' . $this->plugin, [$this, 'settingsLinks']);
     }
 
     public function settingsLinks($links)
