@@ -21,15 +21,27 @@ class Enqueue extends Base
      */
     public function enqueue()
     {
-        $this->enqueueStyles(array([
-            'name' => 'main_styles',
-            'file_name' => 'style.css'
-        ]));
+        $this->enqueueStyles([
+            [
+                'name' => 'main_styles',
+                'file_name' => 'style.css'
+            ],
+            [
+                'name' => 'bootstrap_styles',
+                'file_name' => 'bootstrap.min.css'
+            ]
+        ]);
 
-        $this->enqueueScripts(array([
-            'name' => 'main_js',
-            'file_name' => 'script.js'
-        ]));
+        $this->enqueueScripts([
+            [
+                'name' => 'main_js',
+                'file_name' => 'script.js'
+            ],
+            [
+                'name' => 'bootstrap_js',
+                'file_name' => 'bootstrap.bundle.min.js'
+            ]
+        ]);
     }
 
     /**

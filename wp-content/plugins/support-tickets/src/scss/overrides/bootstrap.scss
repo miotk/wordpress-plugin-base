@@ -1,0 +1,16 @@
+/*
+Bootstrap style overrides.
+ */
+
+a {
+
+  &.list-group-item {
+
+    &.list-group-item-action {
+
+      &.active {
+        color: white !important;
+      }
+    }
+  }
+}

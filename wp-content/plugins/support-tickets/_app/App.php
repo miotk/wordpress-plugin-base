@@ -17,7 +17,7 @@ final class App
             Bootstrap\Activate::class,
             Bootstrap\Settings::class,
             Bootstrap\Enqueue::class,
-            Pages\Admin::class
+            Pages\AdminPages::class
         ];
     }
 

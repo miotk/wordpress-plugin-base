@@ -17,7 +17,7 @@ class Settings extends Base
 
     public function settingsLinks($links)
     {
-        $link = '<a href="admin.php?page=support_tickets">Settings</a>';
+        $link = '<a href="admin.php?page=support_tickets_settings">Settings</a>';
         array_push($links, $link);
         return $links;
     }

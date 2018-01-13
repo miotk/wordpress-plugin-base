@@ -1,0 +1,1 @@
+{"version":3,"sources":["overrides/bootstrap.scss"],"names":[],"mappings":"AAAA,gDAOQ,sBAAuB,CACxB","file":"style.css","sourcesContent":["a {\r\n\r\n  &.list-group-item {\r\n\r\n    &.list-group-item-action {\r\n\r\n      &.active {\r\n        color: white !important;\r\n      }\r\n    }\r\n  }\r\n}"]}
