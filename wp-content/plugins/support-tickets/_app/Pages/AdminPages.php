@@ -9,6 +9,9 @@ use App\Api\Callbacks\ManagerCallbacks;
 use App\Api\Settings;
 use App\Bootstrap\Base;
 use App\Api\Callbacks\AdminCallbacks;
+use App\Pages\Settings\Admin\EmailSettings;
+use App\Pages\Sections\Admin\EmailSection;
+use App\Pages\Fields\Admin\EmailFields;
 
 class AdminPages extends Base
 {
@@ -132,33 +135,15 @@ class AdminPages extends Base
      */
     public function setSettings()
     {
-        $args = [
-            [
-                'option_group' => 'support_ticket_plugin_settings',
-                'option_name' => 'st_email_on_user_entry',
-                'option_callback' => [ $this->callbacks_mngr, 'sanitizeCheckbox' ]
-            ],
-            [
-                'option_group' => 'support_ticket_plugin_settings',
-                'option_name' => 'st_user_roles',
-                'option_callback' => [ $this->callbacks_mngr, 'selectSanitize' ]
-            ],
-            [
-                'option_group' => 'support_ticket_plugin_settings',
-                'option_name' => 'st_default_user',
-                'option_callback' => [ $this->callbacks_mngr, 'selectSanitize' ]
-            ],
-            [
-                'option_group' => 'support_ticket_plugin_settings',
-                'option_name' => 'st_elapsed_time',
-                'option_callback' => [ $this->callbacks_mngr, 'sanitizeCheckbox' ]
-            ],
-            [
-                'option_group' => 'support_ticket_plugin_settings',
-                'option_name' => 'st_user_view_only',
-                'option_callback' => [ $this->callbacks_mngr, 'sanitizeCheckbox' ]
-            ]
-        ];
+        $args = [];
+
+        foreach ($this->managers as $key => $value) {
+            $args[] = [
+                'option_group' => 'support_ticket_plugin_email_settings',
+                'option_name' => $key,
+                'callback' => [ $this->callbacks_mngr, 'editorField' ]
+            ];
+        }
 
         $this->settings->setSettings($args);
         return $this;
@@ -170,13 +155,10 @@ class AdminPages extends Base
      */
     public function setSections()
     {
+        $email = new EmailSection();
+
         $args = [
-            [
-                'id' => 'support_tickets_admin_index',
-                'title' => 'Support Ticket Settings Manager',
-                'callback' => [ $this->callbacks_mngr, 'adminSectionManager' ],
-                'page' => 'support_tickets_settings'
-            ]
+            $email->bootstrap()
         ];
 
         $this->settings->setSections($args);
@@ -189,52 +171,20 @@ class AdminPages extends Base
      */
     public function setFields()
     {
-        $args = [
-            [
-                'id' => 'st_email_on_user_entry',
-                'title' => 'Email customer when ticket has been received',
-                'callback' => [ $this->callbacks_mngr, 'checkboxField'],
+        $args = [];
+
+        foreach ($this->managers as $key => $value) {
+            $args[] = [
+                'id' => $key,
+                'title' => $value,
+                'callback' => [ $this->callbacks_mngr, 'editorField' ],
                 'page' => 'support_tickets_settings',
-                'section' => 'support_tickets_admin_index',
+                'section' => 'support_tickets_email_settings_index',
                 'args' => [
-                    'label_for' => 'st_email_on_user_entry',
-                    'class' => 'ui-toggle'
+                    'label_for' => $key
                 ]
-            ],
-            [
-                'id' => 'st_user_roles',
-                'title' => 'Only allow users to see their own tickets',
-                'callback' => [ $this->callbacks_mngr, 'checkboxField'],
-                'page' => 'support_tickets_settings',
-                'section' => 'support_tickets_admin_index',
-                'args' => [
-                    'label_for' => 'st_user_roles',
-                    'class' => 'ui-toggle'
-                ]
-            ],
-            [
-                'id' => 'st_elapsed_time',
-                'title' => 'Show elapsed time on tickets',
-                'callback' => [ $this->callbacks_mngr, 'checkboxField'],
-                'page' => 'support_tickets_settings',
-                'section' => 'support_tickets_admin_index',
-                'args' => [
-                    'label_for' => 'st_elapsed_time',
-                    'class' => 'ui-toggle'
-                ]
-            ],
-            [
-                'id' => 'st_default_user',
-                'title' => 'Set default user all tickets should go to',
-                'callback' => [ $this->callbacks_mngr, 'defaultUser'],
-                'page' => 'support_tickets_settings',
-                'section' => 'support_tickets_admin_index',
-                'args' => [
-                    'label_for' => 'st_default_user',
-                    'class' => 'ui-toggle'
-                ]
-            ]
-        ];
+            ];
+        }
 
         $this->settings->setFields($args);
         return $this;

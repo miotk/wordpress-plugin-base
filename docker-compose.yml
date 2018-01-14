@@ -6,7 +6,7 @@ services:
             - '80:80'
             - '443:443'
         volumes:
-            - /c/Users/Development/code/wordpress-plugin-base/:/var/www/html/
+            - /Users/connor/code/wordpress-plugin-base/:/var/www/html/
         depends_on:
             - database
         environment:
@@ -16,7 +16,7 @@ services:
             WORDPRESS_TABLE_PREFIX: miotk_
     database:
         image: percona:latest
-        volumes:\
+        volumes:
             - db-data:/var/lib/mysql/
         ports:
             - '3306:3306'
